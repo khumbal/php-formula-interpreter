@@ -64,4 +64,20 @@ class FunctionCommand implements CommandInterface
                 )
             );
     }
+
+    /**
+     * @return callable
+     */
+    public function getCallable(): callable
+    {
+        return $this->callable;
+    }
+
+    /**
+     * @return array
+     */
+    public function getArgumentCommands(): array
+    {
+        return $this->argumentCommands;
+    }
 }

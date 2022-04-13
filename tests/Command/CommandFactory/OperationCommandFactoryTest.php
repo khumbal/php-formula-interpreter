@@ -21,7 +21,7 @@ use PHPUnit\Framework\TestCase;
  */
 class OperationCommandFactoryTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->factory = new OperationCommandFactory($this->createCommandFactoryMock());
     }

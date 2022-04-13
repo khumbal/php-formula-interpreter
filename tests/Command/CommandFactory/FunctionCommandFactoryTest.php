@@ -12,15 +12,17 @@ use FormulaInterpreter\Command\FunctionCommand;
 use FormulaInterpreter\Command\CommandInterface;
 use FormulaInterpreter\Command\CommandFactory\FunctionCommandFactory;
 use FormulaInterpreter\Exception\UnknownFunctionException;
+use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Description of NumericCommandFactory
  *
  * @author mathieu
  */
-class FunctionCommandFactoryTest extends \PHPUnit\Framework\TestCase
+class FunctionCommandFactoryTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->argumentCommandFactory = $this->createMock(
             'FormulaInterpreter\Command\CommandFactory\CommandFactoryInterface'
@@ -43,8 +45,11 @@ class FunctionCommandFactoryTest extends \PHPUnit\Framework\TestCase
     {
         $options = ['name' => 'pi'];
         $object = $this->factory->create($options);
-        $this->assertObjectPropertyEquals($object, 'callable', $this->piFunction);
-        $this->assertObjectPropertyEquals($object, 'argumentCommands', []);
+        Assert::assertObjectHasAttribute('callable', $object);
+        Assert::assertEquals($object->getCallable(), $this->piFunction);
+        Assert::assertEquals($object->getArgumentCommands(), []);
+//        $this->assertObjectPropertyEquals($object, 'callable', $this->piFunction);
+//        $this->assertObjectPropertyEquals($object, 'argumentCommands', []);
     }
 
     public function testCreateWithArguments()
@@ -62,8 +67,9 @@ class FunctionCommandFactoryTest extends \PHPUnit\Framework\TestCase
             'arguments' => [['type' => 'fake']]
         ];
         $object = $this->factory->create($options);
-        $this->assertObjectPropertyEquals($object, 'callable', $this->piFunction);
-        $this->assertObjectPropertyEquals($object, 'argumentCommands', [$argumentCommand]);
+
+        Assert::assertEquals($object->getCallable(), $this->piFunction);
+        Assert::assertEquals($object->getArgumentCommands(), [$argumentCommand]);
     }
 
     public function testCreateWithNotExistingFunction()
@@ -79,10 +85,5 @@ class FunctionCommandFactoryTest extends \PHPUnit\Framework\TestCase
     {
         $this->expectException(CommandFactoryException::class);
         $this->factory->create([]);
-    }
-
-    protected function assertObjectPropertyEquals($object, $property, $expected)
-    {
-        $this->assertEquals(\PHPUnit\Framework\Assert::readAttribute($object, $property), $expected);
     }
 }

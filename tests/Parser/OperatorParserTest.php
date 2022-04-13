@@ -11,18 +11,19 @@ use FormulaInterpreter\Command\OperationCommand;
 use FormulaInterpreter\Parser\OperatorParser;
 use FormulaInterpreter\Parser\ParserException;
 use FormulaInterpreter\Parser\ParserInterface;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Description of OperatorParserTest
  *
  * @author mathieu
  */
-class OperatorParserTest extends \PHPUnit\Framework\TestCase
+class OperatorParserTest extends TestCase
 {
     /** @var OperatorParser */
     private $parser;
 
-    public function setUp()
+    public function setUp(): void
     {
         $operandParser = $this->createMock(ParserInterface::class);
         $operandParser
@@ -117,7 +118,7 @@ class OperatorParserTest extends \PHPUnit\Framework\TestCase
             ['(4+ 3)+ 2 ', [
                 'firstOperand' => '4+ 3',
                 'otherOperands' => [
-                    ['operator' => 'add', 'value' => '+2'],
+                    ['operator' => 'add', 'value' => '2'],
                 ]
             ]],
             ['(4+ 3)+ (2*3) ', [

@@ -17,7 +17,7 @@ use FormulaInterpreter\Parser\ParserException;
  */
 class FunctionParserTest extends \PHPUnit\Framework\TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $argumentParser = $this->createMock('\FormulaInterpreter\Parser\ParserInterface');
         $argumentParser

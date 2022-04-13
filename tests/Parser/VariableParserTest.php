@@ -17,7 +17,7 @@ use FormulaInterpreter\Parser\ParserException;
  */
 class VariableParserTest extends \PHPUnit\Framework\TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->parser = new VariableParser();
     }
