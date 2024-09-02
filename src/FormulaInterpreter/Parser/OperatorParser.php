@@ -132,7 +132,10 @@ class OperatorParser implements ParserInterface
 
     public static function catchOperatorFromPosition($expression, $position, $operators){
         usort($operators, function ($a, $b) {
-            return strlen($a) < strlen($b);
+            if (strlen($a) == strlen($b)) {
+                return 0;
+            }
+            return strlen($a) < strlen($b) ? -1 : 1;
         });
         foreach ($operators as $operator) {
             $substr = substr($expression, $position, strlen($operator));
